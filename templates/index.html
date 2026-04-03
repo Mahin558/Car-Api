@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BMW Search</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>BMW Search Tool</h1>
+        <p>Search by model, generation, or engine code.</p>
+
+        <form method="GET" action="/">
+            <input type="text" name="query" placeholder="Search BMW..." value="{{ query }}">
+            <button type="submit">Search</button>
+        </form>
+
+        {% if query %}
+            <h2>Results for "{{ query }}"</h2>
+
+            {% if results %}
+                <div class="results">
+                    {% for car in results %}
+                        <div class="card">
+                            <h3>{{ car.model }}</h3>
+                            <p><strong>Generation:</strong> {{ car.generation }}</p>
+                            <p><strong>Years:</strong> {{ car.years }}</p>
+                            <p><strong>Engine Code:</strong> {{ car.engine_code }}</p>
+                            <p><strong>Engine Type:</strong> {{ car.engine_type }}</p>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <p>No BMWs found.</p>
+            {% endif %}
+        {% endif %}
+    </div>
+</body>
+</html>
